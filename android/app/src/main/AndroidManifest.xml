@@ -47,4 +47,7 @@
             android:value="AIzaSyDkgiIXr0LBHiffJD7D3Z5c-HW1urBATp4"/>
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 </manifest>
