@@ -12,14 +12,21 @@ class Background extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height,
-      width: double.infinity,
-      child: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          child,
-        ],
-      ),
-    );
+        height: size.height,
+        width: double.infinity,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/bginicio.jpg"),
+                      fit: BoxFit.cover,
+                      colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.7), BlendMode.dstATop))),
+            ),
+            child,
+          ],
+        ));
   }
 }
