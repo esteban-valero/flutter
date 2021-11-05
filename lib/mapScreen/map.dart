@@ -1,6 +1,10 @@
+import 'package:flashpark_client/widgets/Menu_widget.dart';
+import 'package:flashpark_client/widgets/Provider_Widget.dart';
 import 'package:flashpark_client/constants.dart';
 import 'package:flashpark_client/reservas/reservas.dart';
 import 'package:flashpark_client/verPerfil/perfil.dart';
+import 'package:flashpark_client/widgets/customDetailParking.dart';
+import 'package:flashpark_client/widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -16,6 +20,16 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Buscar Parqueaderos",
+          style: TextStyles.appPartnerTextStyle
+              .copyWith(fontSize: 25, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.orange,
+        toolbarHeight: 70,
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -33,39 +47,7 @@ class _MapScreenState extends State<MapScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: new Theme(
-        data: Theme.of(context).copyWith(
-            canvasColor: orangePark,
-            primaryColor: Colors.black,
-            textTheme: Theme.of(context).textTheme.copyWith(
-                caption: new TextStyle(
-                    color:
-                        orangePark))), // sets the inactive color of the `BottomNavigationBar`
-        child: new BottomNavigationBar(
-          currentIndex: _index,
-          onTap: (int index) {
-            setState(() {
-              this._index = index;
-            });
-            _navigateToScreens(index);
-          },
-          type: BottomNavigationBarType.fixed,
-          items: [
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.map),
-              label: "Mapa",
-            ),
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.car_repair),
-              label: "Reservas",
-            ),
-            new BottomNavigationBarItem(
-              icon: new Icon(Icons.person),
-              label: "Perfil",
-            )
-          ],
-        ),
-      ),
+      drawer: Menu().getDrawer(context),
     );
   }
 

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -15,24 +17,29 @@ class AuthService {
   }
 
   Future<String> signUp(String email, String password, String placa,
-      String name, String apell, String vehi, String phone) async {
+      String name, String vehi, String phone) async {
     try {
       final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
 
       await updateUserName(name, authResult.user);
 
+      final ref = FirebaseStorage.instance.ref().child('PeopleIcon.png');
+
+      var url = await ref.getDownloadURL();
+
       firestoreInstance
           .collection("users")
           .doc(FirebaseAuth.instance.currentUser.uid)
           .set({
         "name": name,
-        "apellido": apell,
         "celular": phone,
         "email": email,
         "vehiculo": vehi,
         "placa": placa,
-        "UserID": FirebaseAuth.instance.currentUser.uid
+        "UserID": FirebaseAuth.instance.currentUser.uid,
+        "password": password,
+        "image": url
       }).then((_) {
         print("Success!");
       });

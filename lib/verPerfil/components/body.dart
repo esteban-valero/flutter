@@ -237,11 +237,12 @@ class _ProfileViewState extends State<Body> {
         .get()
         .then((result) {
       user.phone = result.data()['celular'];
-      user.apellido = result.data()['apellido'];
       user.name = result.data()['name'];
       user.email = result.data()['email'];
       user.placa = result.data()['placa'];
       user.vehiculo = result.data()['vehiculo'];
+      user.image = result.data()['image'];
+      user.pasword = result.data()['password'];
     });
   }
 }

@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flashpark_client/Services/FirebaseServices.dart';
-import 'package:flashpark_client/Services/Provider_Widget.dart';
+import 'package:flashpark_client/verPerfil/perfil.dart';
+import 'package:flashpark_client/widgets/Provider_Widget.dart';
 import 'package:flutter/material.dart';
 import 'mainPage/mainPage.dart';
 import 'constants.dart';
@@ -40,7 +41,7 @@ class HomeController extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           final bool signedIn = snapshot.hasData;
 
-          return signedIn ? MapScreen() : MainPage();
+          return signedIn ? VerPerfil() : MainPage();
         }
         return CircularProgressIndicator();
       },

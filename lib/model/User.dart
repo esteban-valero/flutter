@@ -1,12 +1,11 @@
 class User {
   String phone;
-  String apellido;
   String name;
   String pasword;
-
   String email;
   String vehiculo;
   String placa;
+  String image;
 
   User(this.phone);
 
@@ -14,9 +13,9 @@ class User {
         'celular': phone,
         'email': email,
         'name': name,
-        'apellido': apellido,
         'placa': placa,
-        'vehiculo': vehiculo
-        //'Pasword': pasword,
+        'vehiculo': vehiculo,
+        'password': pasword,
+        'image': image
       };
 }
