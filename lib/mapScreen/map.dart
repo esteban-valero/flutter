@@ -6,6 +6,7 @@ import 'package:flashpark_client/model/Directions_Model.dart';
 import 'package:flashpark_client/reservarParqueadero/reservar.dart';
 import 'package:flashpark_client/reservas/reservas.dart';
 import 'package:flashpark_client/verPerfil/perfil.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
@@ -20,6 +21,7 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   int _index = 0;
 
+  TextEditingController _searchDirectionController = TextEditingController();
   Location location = new Location();
   PermissionStatus _permissionGranted;
   LocationData _locationData;
@@ -31,12 +33,6 @@ class _MapScreenState extends State<MapScreen> {
   GoogleMapController _googleMapController;
 
   //Directions _info;
-
-  @override
-  void dispose() {
-    _googleMapController.dispose();
-    super.dispose();
-  }
 
   void getLocation() async {
     _serviceEnabled = await location.serviceEnabled();
@@ -256,21 +252,47 @@ class _MapScreenState extends State<MapScreen> {
       zoom: 18.5,
     );
     return Scaffold(
-      body: GoogleMap(
-        zoomControlsEnabled: false,
-        initialCameraPosition: _initialCameraPosition,
-        zoomGesturesEnabled: true,
-        myLocationEnabled: true,
-        onMapCreated: (controller) => _googleMapController = controller,
-        markers: markers.map((e) => e).toSet(),
-      ),
-      floatingActionButton: FloatingActionButton(
+      appBar: AppBar(
+        title: Text(
+          'FlashPark',
+          style: TextStyle(
+            color: Colors.black
+          ),),
         backgroundColor: orangePark,
-        foregroundColor: Colors.black,
-        onPressed: () => _googleMapController.animateCamera(
-          CameraUpdate.newCameraPosition(_initialCameraPosition),
-        ),
-        child: const Icon(Icons.center_focus_strong),
+      ),
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller: _searchDirectionController,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: InputDecoration(hintText: 'Ingrese Dirección'),
+                  onChanged: (value){
+                    print(value);
+                  },
+                ),
+              ),
+              IconButton(
+                  onPressed: (){
+
+                  },
+                  icon: Icon(Icons.search)
+              )
+            ],
+          ),
+          Expanded(
+            child: GoogleMap(
+              zoomControlsEnabled: false,
+              initialCameraPosition: _initialCameraPosition,
+              zoomGesturesEnabled: true,
+              myLocationEnabled: true,
+              onMapCreated: (controller) => _googleMapController = controller,
+              markers: markers.map((e) => e).toSet(),
+            ),
+          ),
+        ]
       ),
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(
